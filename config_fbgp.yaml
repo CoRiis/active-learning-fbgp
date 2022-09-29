@@ -1,0 +1,46 @@
+# default configurations
+seed: 1
+
+# Model related parameters
+model_type: 'fbgp_mcmc'
+outputs: 1
+noise_prior: True
+covar_prior: "lalprior"
+
+# Initial data set
+initial_samples: 3
+space_filling_design: 'lhs'
+test_samples: 1000
+
+# Data
+al_type: 'population_based'  
+simulator: 'gramacy2d'
+noise_level: 0.05
+
+# Transformation of data: [standardize, min_max_feature_scaling, minusone_one_feature_scaling, identity]
+transformation_x: 'min_max_feature_scaling'
+transformation_y: 'standardize'
+
+# How to query the next point? 
+selection_criteria: 'mcmc_qbc'
+
+# Parameters for the active learning scheme
+active_learning_steps: 1
+k_samples: 1       # Number of unique points to query (should be equal to outputs, if one for each task)
+repeat_sampling: 1  # Number of times to sample for each input,
+                    # i.e. equal 4 will give for simulations for each unique data point
+
+# Hyperparameters for optimizing hyperparameters of GP
+milestones: [300, 600]        # Epochs at which we will lower the learning rate by a factor (non-variational optimizer)
+initial_lr: .1                # Initial learning rate
+n_epochs: 1000                # Number of epochs in optimizing the hyperparameters
+
+# Settings for MCMC
+num_chains: 5
+num_samples: 300 
+warmup_steps: 200
+predict_mcmc: 'mode'
+
+# Output file
+folder: 'outputs/'
+metamodel_name: 'example0'
